@@ -1,12 +1,10 @@
 # initial_exercise
 
-**Replicate these findings with the training data 
+**Replicate these findings with the training data** \n
+Run descriptive statistics to examine outcomes \n
+Run the regressions—look at sample sizes in Bailey et al. (2020) and in this set of results \n
 
-Run descriptive statistics to examine outcomes \\
-Run the regressions—look at sample sizes in Bailey et al. (2020) and in this set of results \\
-
-
-**Run the analysis with the full sample**
+**Run the analysis with the full sample** \n
 
 Are the descriptive stats the same as in the case of training data? If not, why? 
 
