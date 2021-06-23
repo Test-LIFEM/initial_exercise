@@ -1,12 +1,17 @@
 # initial_exercise
 
-Replicate these findings with the training data \\
-Run descriptive statistics to examine outcomes
-Run the regressions—look at sample sizes in Bailey et al. (2020) and in this set of results
+**Replicate these findings with the training data 
 
-Run the analysis with the full sample
-Are the descriptive stats the same as in the case of training data? If not, why?
+Run descriptive statistics to examine outcomes \\
+Run the regressions—look at sample sizes in Bailey et al. (2020) and in this set of results \\
+
+
+**Run the analysis with the full sample**
+
+Are the descriptive stats the same as in the case of training data? If not, why? 
+
 What sample is reasonable?
+
 What other restrictions make sense?
 What flags are necessary?
 What other quirks do you see in the descriptive statistics or regression results? Are there outliers?
