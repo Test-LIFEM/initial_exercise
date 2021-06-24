@@ -1,6 +1,6 @@
 capture log close
 log using "~/Desktop/LIFE-M/temp/data_exercise", replace
-* Complete data exercise from orientation:
+* Complete part 2 of data exercise from LIFE-M orientation:
 * Replicate JEL descriptive statistics and IGM elasticity
 * Alex Coblin
 
