@@ -5,12 +5,6 @@ log using "~/Dropbox/LIFE-M/temp/data_exercise", replace
 
 set more off
 
-global path 	"~/Google Drive/Shared drives/LIFE-M Lab 2021"
-global data 	"$path/LIFE-M Public Data/beta versions/v2"
-global ipums 	"$path/User guide"
-global output	"~/Dropbox/LIFEM_shared/output"
-global temp  	"~/Dropbox/LIFEM_shared/temp"
-
 	* Generate files for dads
 	use "$data/lifem_master_public_v2.dta", clear
 	keep if generation==1 & training==0 & sex == 1 & ///

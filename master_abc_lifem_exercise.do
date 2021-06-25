@@ -18,4 +18,7 @@ global git 		"~/GitHub/initial_exercise"
 												//				$data/lifem_using_census_v2
 												//				$ipums/ipums-assignment.dta
 												//	outputs:	$temp/lifem_census_merge
-												
+
+	do "$git/lifem_initial_exercise.do"			// Clean LIFEM-Census dataset 
+												// 	inputs: 	$temp/lifem_census_merge
+												//	outputs:	$temp/lifem_census_cleaned
