@@ -9,7 +9,8 @@ set more off
 global path 	"~/Google Drive/Shared drives/LIFE-M Lab 2021"
 global data 	"$path/LIFE-M Public Data/beta versions/v2"
 global ipums 	"$path/User guide"
-global temp  	"~/Desktop/LIFE-M/temp"
+global output	"~/Dropbox/LIFEM_shared/output"
+global temp  	"~/Desktop/LIFEM_shared/temp"
 
 	* Generate files for dads
 	use "$data/lifem_master_public_v2.dta", clear
@@ -64,67 +65,73 @@ global temp  	"~/Desktop/LIFE-M/temp"
 	drop if histid_1940_ == ""
 	rename histid_1940 histid
 	saveold "$temp/lifem_census_crosswalk", replace
-	
+
 	* Merge IPUMS data to LIFEM crosswalk
 	use "$ipums/ipums-assignment.dta", clear
 	local censusvars "histid statefip sex age race bpl incwage school higrade"
 	keep `censusvars'
 	merge 1:m histid using "$temp/lifem_census_crosswalk", keep(3) nogen
-	rename histid histid_
-	rename statefip census_statefip
-	local censusvars "census_statefip sex age race bpl incwage school higrade"
+	foreach var of varlist `censusvars' {
+	rename `var' `var'_
+	}
+	rename statefip_ census_statefip_
+	rename sex_ census_sex_
+	local censusvars "census_statefip_ census_sex_ age_ race_ bpl_ incwage_ school_ higrade_"
 	reshape wide histid_ statefips_ `censusvars', i(fam_id sex_g2) j(gen_sex) string
 	drop fam_id
 	saveold "$temp/lifem_census_merge", replace
 	
 	
-	
-	****** Stuff from other exercise
+	****** Generate relavant controls and Clean census data
 	use "$temp/lifem_census_merge", clear
-	* Generate age controls for son and dad
-	local age_vars ageg1_s1 ageg1_s2 ageg2
+	* Generate age controls
+	local age_vars age_g1_s1 age_g1_s2 age_g2
 	foreach var of varlist `age_vars' {
 	gen `var'_2=`var'^2
 	gen `var'_3=`var'^3
 	gen `var'_4=`var'^4
 	}
 	
-	gen white_g2 = (raceg2==1)
-	replace white_g2 = . if raceg2==.
-	gen nonwhite= 1- white_g2
-	gen black_g2 = (raceg2==2)
-	replace black_g2 = . if raceg2==.
-	recode schoolg2 (1=0) (2=1), gen(attendance_g2)
+	gen white_g2 = (race_g2==1)
+	replace white_g2 = . if race_g2==.
+	gen nonwhite_g2 = 1- white_g2
+	gen black_g2 = (race_g2==2)
+	replace black_g2 = . if race_g2==.
+	recode school_g2 (1=0) (2=1), gen(attendance_g2)
 		
 	gen ohio_g2 = 0
 	replace ohio_g2=1 if statefips_g2==39	
 	replace ohio_g2 = . if statefips_g2==.
 	
 	* fix wage variable
-	local incwage_vars incwageg2 incwageg1_s1 incwageg1_s2
+	local incwage_vars incwage_g2 incwage_g1_s1 incwage_g1_s2
 	foreach var of varlist `incwage_vars'{
 	replace `var'=. if `var'>=999998
 	replace `var'=. if `var'<=0
 	replace `var'=5001 if `var'>5001 & `var'<.
 	}
 	
-	gen shtopcode_g2 = (incwageg2==5001)
-	replace shtopcode_g2 = . if incwageg2==.
-	gen shtopcode_g1_s1 = (incwageg1_s1==5001)
-	replace shtopcode_g1_s1 = . if incwageg1_s1==.
-	gen shtopcode_g1_s2 = (incwageg1_s2==5001)
-	replace shtopcode_g1_s2 = . if incwageg1_s2==.
+	gen shtopcode_g2 = (incwage_g2==5001)
+	replace shtopcode_g2 = . if incwage_g2==.
+	gen shtopcode_g1_s1 = (incwage_g1_s1==5001)
+	replace shtopcode_g1_s1 = . if incwage_g1_s1==.
+	gen shtopcode_g1_s2 = (incwage_g1_s2==5001)
+	replace shtopcode_g1_s2 = . if incwage_g1_s2==.
 
 	* Standardize variables
-	foreach x of varlist incwageg2 incwageg1_s1 higradeg2 higradeg1_s1 incwageg1_s2 higradeg1_s2 {
+	foreach x of varlist incwage_g2 incwage_g1_s1 higrade_g2 higrade_g1_s1 incwage_g1_s2 higrade_g1_s2 {
 	sum `x'
 	gen std_`x' = (`x' - r(mean))/r(sd)
 	gen ln_std_`x' = ln(std_`x')
 	gen ln_`x' = ln(`x')
 	}
 	
+	* Summary stats
+	estpost summarize age_g* race_g* white_g2 black_g2 attendance_g2 higrade_* shtopcode* inc* ln_inc*  ohio_g2, d
+	esttab using "${output}/full_sumstats_tr0.xls", cells("count mean sd min max p25 p50 p75 p90") tab replace
+
 	* Limit sample of sons/dads by age
-	local control ageg* ohio_g2
+	local control age_g* ohio_g2
 	local r replace		
 
 
@@ -138,9 +145,6 @@ global temp  	"~/Desktop/LIFE-M/temp"
 		loc ++i
 		}
 
-	* Summary stats
-	estpost summarize age yob race black attendance shtopcode* inc* linc* educ* leduc*, d
-	esttab using "${out}/sumstats_tr`t'.xls", cells("count mean sd min max p25 p50 p75 p90") tab replace
 
 	
 	
