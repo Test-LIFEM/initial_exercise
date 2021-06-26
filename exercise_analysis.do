@@ -6,10 +6,13 @@ log using "~/Desktop/LIFE-M/temp/data_exercise_analysis", replace
 
 set more off
 
+	use "$temp/lifem_census_cleaned_tr0", clear
+	
+	local age_vars age_g2 age_g1_s1 age_g1_s2
 	local other_vars sex_g2 white_g2 black_g2 nonwhite_g2 attendance_g2 higrade_* shtopcode* inc* ln_inc*  ohio_g2
 	* Summary stats - Full sample
-	estpost summarize `age_vars' `other_vars', d
-	esttab using "${output}/full_sumstats.xls", cells("count mean sd min max p25 p50 p75 p90") tab replace
+	estpost summarize `age_vars' `other_vars', d 
+	esttab using "${output}/full_sumstats.xls", cells("count mean sd min max p25 p50 p75 p90") label tab replace
 
 	* Summary stats - Ohio
 	estpost summarize `age_vars' `other_vars' if ohio_g2 == 1, d

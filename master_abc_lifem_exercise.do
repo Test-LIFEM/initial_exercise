@@ -20,5 +20,10 @@ global git 		"~/GitHub/initial_exercise"
 												//	outputs:	$temp/lifem_census_merge
 
 	do "$git/lifem_initial_exercise.do"			// Clean LIFEM-Census dataset 
-												// 	inputs: 	$temp/lifem_census_merge
+												// 	inputs: 	$temp/lifem_census_merge_tr0
+												//	outputs:	$temp/lifem_census_cleaned_tr0
+												
+	do "$git/exercise_analysis.do"				// Clean LIFEM-Census dataset 
+												// 	inputs: 	$temp/lifem_census_cleaned
 												//	outputs:	$temp/lifem_census_cleaned
+
