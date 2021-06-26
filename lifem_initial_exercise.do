@@ -7,7 +7,7 @@ log using "~/Desktop/LIFE-M/temp/data_exercise", replace
 set more off
 
 	****** Generate relavant controls and Clean census data
-	use "$temp/lifem_census_merge", clear
+	use "$temp/lifem_census_merge_tr0", clear
 	* Generate age controls
 	local age_vars age_g2 age_g1_s1 age_g1_s2
 	foreach var of varlist `age_vars' {
@@ -51,15 +51,26 @@ set more off
 	}
 	
 	* add labels to variables
-	label variable age_g2 "Age (G2)"
-	label variable age_g1_s1 "Father's Age (G1)"
-	label variable age_g1_s2 "Mother's Age (G1)"
-	label variable white_g2
+	label variable age_g2 			"Age (G2)"
+	label variable age_g1_s1 		"Father's Age (G1)"
+	label variable age_g1_s2 		"Mother's Age (G1)"
+	label variable white_g2 		"Race-white (G2)"
+	label variable race_g2			"Race (G2)"
+	label variable nonwhite_g2		"Race-nonwhite (G2)"
+	label variable black_g2			"Race-black (G2)"
+	label variable ohio_g2			"Ohio born (G2)"
+	label variable incwage_g2		"Income (G2)"
+	label variable incwage_g1_s1	"Father Income (G1)"
+	label variable incwage_g1_s2	"Mother Income (G1)"
+	label variable sex_g2			"Sex (G2)"
+	label variable shtopcode_g2		"Share with topcode income (G2)"
+	label variable shtopcode_g1_s1	"Share of fathers with topcode income (G1)"
+	label variable shtopcode_g1_s2	"Share of mothers with topcode income (G1)"
+	label variable higrade_g2		"Highest grade of schooling (G2)"
+	label variable higrade_g1_s1	"Father highest grade of schooling (G1)"
+	label variable higrade_g1_s2	"Mother highest grade of schooling (G1)"
+	label variable ln_incwage_g2 	"Log Income (G2)"
+	label variable ln_incwage_g1_s1 	"Log Father Income (G1)"
+	label variable ln_incwage_g1_s2 	"Log Mother Income (G1)"
 	
-	
-
-
-	
-
-
-		
+	saveold "$temp/lifem_census_cleaned_tr0", replace
