@@ -6,6 +6,7 @@ log using "~/Desktop/LIFE-M/temp/data_exercise", replace
 
 set more off
 
+blah blah blah
 	****** Generate relavant controls and Clean census data
 	use "$temp/lifem_census_merge_tr0", clear
 	* Generate age controls
