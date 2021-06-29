@@ -17,4 +17,8 @@
 -How are the results different by sex?  
 
 - Mengying added a comment
+<<<<<<< HEAD
 - test
+=======
+- Joaquin added a line
+>>>>>>> aa7a0f0bf28abf6be5ca537752fb4b526f96ba85
