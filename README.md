@@ -15,3 +15,10 @@
 -How do the results differ across training and full samples? How do the results differ by state?  
 -What are IGE for education by sex? For girls and their fathers? Girls and their mothers? Boys and their mothers? How do these estimates differ from the IGE for education for boys and their fathers? Boys with both mothers and fathers education in regression? Girls with both mothers and fathers education in regression? What are the sibling correlations?  
 -How are the results different by sex?  
+
+- Mengying added a comment
+<<<<<<< HEAD
+- test
+=======
+- Joaquin added a line
+>>>>>>> aa7a0f0bf28abf6be5ca537752fb4b526f96ba85
