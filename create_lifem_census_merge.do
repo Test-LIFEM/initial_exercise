@@ -2,6 +2,7 @@ capture log close
 log using "~/Dropbox/LIFE-M/temp/data_exercise", replace
 * Creates data extracts from LIFE-M master and merges to Census Crosswalk
 * Alex Coblin
+* Add new comment
 
 set more off
 
